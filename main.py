@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-# author:           lmz
-# pc_type           lenovo saviour
-# create_time:      2020/10/24 19:28
-# file_name:        work.py
+#烟台大学 计控学院
+# lmz
+#开发时间：2020/11/01 10:40
 
 import wx
 import wx.grid
@@ -67,7 +65,7 @@ def return_euclidean_distance(feature_1, feature_2):
 
 class WAS(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self,parent=None,title="智能监考系统",size=(1380,840))
+        wx.Frame.__init__(self,parent=None,title="智能监考系统",size=(920,560))
 
         self.initMenu() #初始化菜单
         self.initInfoText() #初始化信息面板显示
@@ -77,7 +75,7 @@ class WAS(wx.Frame):
     #监控进程
     def startKill(self):
         while True:
-            time.sleep(5)
+            time.sleep(5) #每五秒循环一次
             pids = psutil.pids()
             # print(pids)
             for pid in pids:
@@ -182,7 +180,7 @@ class WAS(wx.Frame):
     def OnOpenLogcatClicked(self,event):
         self.loadDataBase(2)
         #必须要变宽才能显示 scroll
-        self.SetSize(980,560)
+        self.SetSize(920,560)
         grid = wx.grid.Grid(self,pos=(320,0),size=(640,500))
         grid.CreateGrid(100, 4)
         for i in range(100):
@@ -481,7 +479,7 @@ class WAS(wx.Frame):
     # 响应开始考试事件
     def OnStartExamClicked(self,event):
         tl = threading.Thread(target=startVideo.startExam)  # 录制音频
-        t2 = threading.Thread(target=processKill.startKill)  # 录制屏幕
+        t2 = threading.Thread(target=processKill.startKill)  # 监控非法进程
         event = threading.Event()
         event.clear()
         for t in (tl, t2):
@@ -493,15 +491,15 @@ class WAS(wx.Frame):
     #完成左侧信息输出
     def initInfoText(self):
         #设置infoText背景颜色
-        # resultText = wx.StaticText(parent=self, pos = (10,20),size=(90, 60))
-        # resultText.SetBackgroundColour('green')
+        resultText = wx.StaticText(parent=self, pos = (10,20),size=(90, 60))
+        resultText.SetBackgroundColour('white')
 
-        self.pic_index = wx.Image("drawable/index_right.png", wx.BITMAP_TYPE_ANY).Scale(640, 750)
-        self.bmp = wx.StaticBitmap(parent=self, pos=(10, 20), bitmap=wx.Bitmap(self.pic_index))
+        # self.pic_index = wx.Image("drawable/index_right.png", wx.BITMAP_TYPE_ANY).Scale(320, 500)
+        # self.bmp = wx.StaticBitmap(parent=self, pos=(10, 20), bitmap=wx.Bitmap(self.pic_index))
 
         self.info = "\r\n"+self.getDateAndTime()+"程序初始化成功\r\n"
         #第二个参数水平混动条
-        self.infoText = wx.TextCtrl(parent=self,size=(480,750),
+        self.infoText = wx.TextCtrl(parent=self,size=(320,500),
                    style=(wx.TE_MULTILINE|wx.HSCROLL|wx.TE_READONLY))
         #前景色，也就是字体颜色
         self.infoText.SetForegroundColour("BLACK")
@@ -518,8 +516,8 @@ class WAS(wx.Frame):
         pass
     #完成右侧信息输出
     def initGallery(self):
-        self.pic_index = wx.Image("drawable/index.png", wx.BITMAP_TYPE_ANY).Scale(900, 750)
-        self.bmp = wx.StaticBitmap(parent=self, pos=(480,0), bitmap=wx.Bitmap(self.pic_index))
+        self.pic_index = wx.Image("drawable/index.png", wx.BITMAP_TYPE_ANY).Scale(600, 500)
+        self.bmp = wx.StaticBitmap(parent=self, pos=(320,0), bitmap=wx.Bitmap(self.pic_index))
         pass
     # 获取系统时间
     def getDateAndTime(self):

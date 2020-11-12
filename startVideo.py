@@ -1,6 +1,6 @@
 #烟台大学 计控学院
 # lmz
-#开发时间：2020/11/10 10:40
+#开发时间：2020/11/01 10:40
 
 
 import wave
@@ -144,5 +144,4 @@ def startExam():
     remove(screen_video_filename)
     remove(cam1_video_filename)
     shutil.move(jvideo_filename, './video/')
-
-
+# startExam()
